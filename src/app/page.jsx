@@ -32,7 +32,7 @@ export default function Home() {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`,
         {
-          dni: inputValue, 
+          dni: inputValue,
           cuil: inputValue,
           email: inputValue,
           phone: inputValue,
@@ -72,6 +72,7 @@ export default function Home() {
       setUserState(null);
     }
   };
+
 
   return (
     <div className="flex items-center justify-center w-screen min-h-screen bg-white">

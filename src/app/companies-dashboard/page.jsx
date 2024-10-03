@@ -25,6 +25,7 @@ const CompaniesDashboard = () => {
   const [isEditPopoverOpen, setIsEditPopoverOpen] = useState(false);
   const [operators, setOperators] = useState([]);
   const [isOpAddPopoverOpen, setIsOpAddPopoverOpen] = useState(false); // estado del popover para agregar empleados
+  const [message, setMessage] = useState("");
 
   // Función para obtener empresas
   const fetchCompanies = async () => {
@@ -61,6 +62,7 @@ const CompaniesDashboard = () => {
   const handleAddOperator = async (company) => {
     if (!userFound) {
       console.error("No user found with the given email.");
+      setMessage("Usuario no encontrado.");
       return;
     }
 
@@ -73,12 +75,18 @@ const CompaniesDashboard = () => {
         }
       );
       setIsOpAddPopoverOpen(false);
+      setMessage("Usuario agregado correctamente.");
       console.log("User added successfully:", response.data);
-      // Puedes agregar lógica adicional aquí si lo necesitas
+
+      // Limpia el campo de búsqueda y el usuario encontrado
+      setCuilToAdd("");
+      setUserFound(null);
     } catch (error) {
       console.error("Error adding user to company:", error);
+      setMessage("Error al agregar el usuario.");
     }
   };
+
 
   const handleSearchUser = () => {
     const foundUser = users.find((user) => user.cuil.toString() === cuilToAdd.toString());
@@ -158,7 +166,7 @@ const CompaniesDashboard = () => {
       company.phone.toString().includes(searchTerm)
     );
   });
-console.log(filteredCompanies);
+  console.log(filteredCompanies);
 
   return (
     <div className="overflow-x-auto w-full m-16">
@@ -262,9 +270,7 @@ console.log(filteredCompanies);
                     </PopoverTrigger>
                     <PopoverContent>
                       <div className="bg-blue border-2 shadow-lg border-lightBlue p-3 rounded-lg my-2 space-y-2 flex flex-col items-center">
-                        <strong className="text-white text-center">
-                          Agregar Empleado
-                        </strong>
+                        <strong className="text-white text-center">Agregar Empleado</strong>
                         <div className="flex flex-row space-x-2">
                           <input
                             type="text"
@@ -277,14 +283,13 @@ console.log(filteredCompanies);
                             <FaSearch className="text-white text-lg" />
                           </button>
                         </div>
+
                         {userFound ? (
                           <div className="space-y-1">
-                            <p className="text-white text-center">
-                              Usuario encontrado
-                            </p>
+                            <p className="text-white text-center">Usuario encontrado</p>
                             <button
                               onClick={() => handleAddOperator(company)}
-                              className="bg-lightBlue shadow-xl p-2 px-2 rounded-lg flex justify-center w-full "
+                              className="bg-lightBlue shadow-xl p-2 px-2 rounded-lg flex justify-center w-full"
                             >
                               <p className="text-white">Agregar a la empresa</p>
                             </button>
@@ -292,6 +297,9 @@ console.log(filteredCompanies);
                         ) : (
                           <p className="text-white">Usuario no encontrado.</p>
                         )}
+
+                        {/* Aquí se muestra el mensaje de éxito o error */}
+                        {message && <p className="text-green-500 mt-2">{message}</p>}
                       </div>
                     </PopoverContent>
                   </Popover>

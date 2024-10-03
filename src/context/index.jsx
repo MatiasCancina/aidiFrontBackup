@@ -5,47 +5,38 @@ import { createContext, useContext } from "react";
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  // if (typeof window !== "undefined") {
-  //   const savedState = window.localStorage.getItem("userState");
-  //   const initialState = savedState
-  //     ? JSON.parse(savedState)
-  //     : {
-  //       id: null,
-  //       dni: null,
-  //       cuil: null,
-  //       email: null,
-  //       phone: null,
-  //       role: null,
-  //       userCompanies: [],
-  //       token: null,
-  //     };
-  // }
-
   const [userState, setUserState] = useState({})
 
-  const [initialState, setInitialState] = useState({
-    id: null,
-    dni: null,
-    cuil: null,
-    email: null,
-    phone: null,
-    role: null,
-    userCompanies: [],
-    token: null,
-  });
+  // const [initialState, setInitialState] = useState({
+  //   id: null,
+  //   dni: null,
+  //   cuil: null,
+  //   email: null,
+  //   phone: null,
+  //   role: null,
+  //   userCompanies: [],
+  //   token: null,
+  // });
 
   // Guarda el estado del usuario en localStorage cada vez que se actualice
-  useEffect(() => {
-    window.localStorage.setItem("initialState", JSON.stringify(initialState));
-  }, [initialState]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("initialState", JSON.stringify(initialState));
+  // }, [initialState]);
+
+  // useEffect(() => {
+  //   const isExists = JSON.parse(localStorage.getItem('initialState')) || {}
+  //   if(isExists) {
+  //     setUserState(isExists)
+  //   }
+  // }, [])
 
   useEffect(() => {
-    const isExists = JSON.parse(localStorage.getItem('initialState')) || {}
-    if(isExists) {
-      setUserState(isExists)
+    const savedState = window.localStorage.getItem("authToken");
+    if (savedState) {
+      const userData = JSON.parse(savedState);
+      setUserState(userData); // Almacena el estado del usuario en el context
     }
-  }, [])
-
+  }, []);  
 
   return (
     <AppContext.Provider value={{ userState, setUserState }}>

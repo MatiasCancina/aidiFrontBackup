@@ -16,7 +16,7 @@ const UserDashboard = () => {
     try {
       const newStatus = user.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
-      const response = await axios.put(
+      await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users/status`,
         { dni: user.dni, statusUser: newStatus },
         {
@@ -26,9 +26,12 @@ const UserDashboard = () => {
         }
       );
 
+      // Actualiza el estado inmediatamente tras la operación exitosa
       setUsers((prevUsers) =>
         prevUsers.map((u) =>
-          u.dni === user.dni ? { ...u, statusUser: newStatus } : u
+          u.dni === user.dni
+            ? { ...u, status: newStatus, statusUser: newStatus } // Asegúrate de actualizar ambos campos
+            : u
         )
       );
     } catch (error) {
@@ -59,7 +62,7 @@ const UserDashboard = () => {
 
   const handleDeleteUser = async (user) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}`,
         {
           headers: {
@@ -68,13 +71,12 @@ const UserDashboard = () => {
         }
       );
 
-      setUsers((prevUsers) =>
-        prevUsers.filter((u) => u.id !== user.id)
-      );
+      // Elimina al usuario del estado local inmediatamente
+      setUsers((prevUsers) => prevUsers.filter((u) => u.id !== user.id));
     } catch (error) {
       console.error("Error al eliminar el usuario:", error);
     }
-  }
+  };
 
   // Función para filtrar usuarios
   const filteredUsers = users.filter((user) => {
