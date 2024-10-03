@@ -14,7 +14,7 @@ const SideBar = () => {
   const { userState } = useAppContext(); // Obtener el estado del usuario
   const pathname = usePathname();
 
-  if (pathname.includes("/cinemark")) return null;
+  // if (pathname.includes("/cinemark")) return null;
 
   return (
     <div className="flex h-screen flex-col justify-between w-[30%]">
