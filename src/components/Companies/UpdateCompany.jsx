@@ -24,28 +24,6 @@ function UpdateCompany({
     companyName: "",
     phone: "",
   });
-  //   useEffect(() => {
-  //     const fetchCompanyData = async () => {
-  //       if (companyId && isEditPopoverOpen) {
-  //         try {
-  //           const response = await axios.get(
-  //             `http://localhost:3003/api/companies/${companyId}`,
-  //             {
-  //               headers: {
-  //                 Authorization: userState.token,
-  //               },
-  //             }
-  //           );
-  //           // Prellenar los datos del formulario con la información de la empresa
-  //           setFormData(response.data.company);
-  //         } catch (error) {
-  //           console.error("Error fetching company data:", error);
-  //         }
-  //       }
-  //     };
-
-  //     fetchCompanyData();
-  //   }, [companyId, isEditPopoverOpen, userState.token]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,7 +33,7 @@ function UpdateCompany({
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:3003/api/companies/${company.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/${company.id}`,
         formData,
         {
           headers: {
@@ -66,7 +44,7 @@ function UpdateCompany({
 
       // Actualizar la lista de empresas después de editar la empresa
       const updatedCompanies = await axios.get(
-        "http://localhost:3003/api/companies/",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/`,
         {
           headers: {
             Authorization: userState.token,

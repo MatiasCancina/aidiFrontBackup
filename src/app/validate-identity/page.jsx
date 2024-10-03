@@ -21,7 +21,7 @@ const ValidateIdentity = () => {
     const fetchCompanies = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3003/api/companies/operator/${userState?.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/companies/operator/${userState?.id}`,
           {
             headers: {
               Authorization: userState.token,
@@ -93,7 +93,7 @@ const ValidateIdentity = () => {
       console.log(requestData);
 
       const response = await axios.post(
-        "http://localhost:3003/api/transactions",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
         requestData,
         {
           headers: {

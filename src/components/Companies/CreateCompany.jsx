@@ -27,7 +27,7 @@ const CreateCompany = ({
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/companies/register",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/register`,
         formData,
         {
           headers: {
@@ -39,7 +39,7 @@ const CreateCompany = ({
 
       // Actualiza la lista de empresas después de agregar una nueva
       const updatedCompanies = await axios.get(
-        "http://localhost:3003/api/companies/",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/`,
         {
           headers: {
             Authorization: userState.token,

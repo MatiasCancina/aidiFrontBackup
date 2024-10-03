@@ -17,7 +17,7 @@ const UserDashboard = () => {
       const newStatus = user.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
       const response = await axios.put(
-        "http://localhost:3003/api/users/status",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/status`,
         { dni: user.dni, statusUser: newStatus },
         {
           headers: {
@@ -39,7 +39,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3003/api/users/", {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/`, {
           headers: {
             Authorization: userState.token,
           },
@@ -60,7 +60,7 @@ const UserDashboard = () => {
   const handleDeleteUser = async (user) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3003/api/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}`,
         {
           headers: {
             Authorization: userState.token,

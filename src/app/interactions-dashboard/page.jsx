@@ -34,7 +34,7 @@ function InteractionsDashboard() {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3003/api/transactions/",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/transactions/`,
           {
             headers: {
               Authorization: userState.token,

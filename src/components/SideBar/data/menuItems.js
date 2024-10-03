@@ -7,5 +7,5 @@ export const menuItems = [
     { href: "#", icon: PiTicketFill, label: "Tus interacciones", subItems: [] },
     { href: "#", icon: PiBookLight, label: "Tus datos personales", subItems: [] },
     { href: "/validate-identity", icon: HiOutlineUsers, label: "Validar identidad de un tercero", subItems: [] },
-    // { href: "/cinemark", icon: PiPlayFill, label: "Demo", subItems: [] },
+    { href: "/cinemark", icon: PiPlayFill, label: "Demo", subItems: [] },
 ];

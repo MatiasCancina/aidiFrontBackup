@@ -30,7 +30,7 @@ export default function Home() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/users/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`,
         {
           dni: inputValue, 
           cuil: inputValue,

@@ -29,7 +29,7 @@ const CompaniesDashboard = () => {
   // Función para obtener empresas
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get("http://localhost:3003/api/companies/", {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/companies/`, {
         headers: { Authorization: userState.token },
       });
       setCompanies(response.data.companies);
@@ -41,7 +41,7 @@ const CompaniesDashboard = () => {
   // Función para obtener usuarios
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3003/api/users", {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
         headers: { Authorization: userState.token },
       });
       setUsers(response.data.users);
@@ -66,7 +66,7 @@ const CompaniesDashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/users/add-to-company",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/add-to-company`,
         { cuil: userFound.cuil, companyId: company.id },
         {
           headers: { Authorization: userState.token },
@@ -88,7 +88,7 @@ const CompaniesDashboard = () => {
   const handleGetOperators = async (company) => {
     try {
       const response = await axios.get(
-        `http://localhost:3003/api/users/operators/${company.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/operators/${company.id}`,
         {
           headers: {
             Authorization: userState.token,
@@ -107,7 +107,7 @@ const CompaniesDashboard = () => {
       const updatedStatus = company.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
       const response = await axios.put(
-        "http://localhost:3003/api/companies/status",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/status`,
         {
           cuit: company.cuit,
           statusCompany: updatedStatus,
@@ -132,7 +132,7 @@ const CompaniesDashboard = () => {
   const handleDeleteCompany = async (company) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3003/api/companies/${company.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/companies/${company.id}`,
         {
           headers: {
             Authorization: userState.token,
