@@ -166,7 +166,6 @@ const CompaniesDashboard = () => {
       company.phone.toString().includes(searchTerm)
     );
   });
-  console.log(filteredCompanies);
 
   return (
     <div className="overflow-x-auto w-full m-16">
