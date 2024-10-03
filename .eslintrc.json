@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "next/babel",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      "tab"
+    ],
+    "no-console": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
+  }
+}
